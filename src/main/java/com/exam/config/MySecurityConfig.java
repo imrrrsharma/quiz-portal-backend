@@ -65,6 +65,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/generate-token", "/user/").permitAll()
+                .antMatchers(HttpMethod.GET, "/category/").permitAll() // Allow only GET requests to /category/
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated()
                 .and()
