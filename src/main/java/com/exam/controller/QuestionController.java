@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("*")
@@ -36,14 +37,14 @@ public class QuestionController {
     //get all question of any quid
     @GetMapping("/quiz/{qid}")
     public ResponseEntity<?> getQuestionsOfQuiz(@PathVariable("qid") Long qid) {
-//        Quiz quiz = new Quiz();
-//        quiz.setqId(qid);
-//        Set<Question> questionsOfQuiz = this.service.getQuestionsOfQuiz(quiz);
-//        return ResponseEntity.ok(questionsOfQuiz);
 
         Quiz quiz = this.quizService.getQuiz(qid);
         Set<Question> questions = quiz.getQuestions();
+        for(Question q: questions){
+            q.setAnswer("");
+        }
         List list = new ArrayList(questions);
+
         if (list.size() > Integer.parseInt(quiz.getNumberOfQuestions())) {
             list = list.subList(0, Integer.parseInt(quiz.getNumberOfQuestions() + 1));
         }
@@ -53,19 +54,13 @@ public class QuestionController {
 
     }
 
-
     @GetMapping("/quiz/all/{qid}")
     public ResponseEntity<?> getQuestionsOfQuizAdmin(@PathVariable("qid") Long qid) {
         Quiz quiz = new Quiz();
         quiz.setqId(qid);
         Set<Question> questionsOfQuiz = this.service.getQuestionsOfQuiz(quiz);
         return ResponseEntity.ok(questionsOfQuiz);
-
-//        return ResponseEntity.ok(list);
-
-
     }
-
 
     //get single question
     @GetMapping("/{quesId}")
@@ -83,33 +78,50 @@ public class QuestionController {
     //eval quiz
     @PostMapping("/eval-quiz")
     public ResponseEntity<?> evalQuiz(@RequestBody List<Question> questions) {
-        System.out.println(questions);
         double marksGot = 0;
         int correctAnswers = 0;
         int attempted = 0;
+
+        // Collect all question IDs
+        List<Long> questionIds = questions.stream()
+                .map(Question::getQuesId)
+                .collect(Collectors.toList());
+
+        // Fetch all original questions in a single query
+        List<Question> originalQuestions = new ArrayList<>();
+        for(Long id: questionIds){
+            originalQuestions.add(this.service.getQuestion(id));
+        }
+
+        // Map original questions by ID for quick lookup
+        Map<Long, Question> questionMap = originalQuestions.stream()
+                .collect(Collectors.toMap(Question::getQuesId, q -> q));
+
+        // Evaluate the answers
         for (Question q : questions) {
-            //single questions
-            Question question = this.service.get(q.getQuesId());
-            if (question.getAnswer().equals(q.getGivenAnswer())) {
-                //correct
+            Question originalQuestion = questionMap.get(q.getQuesId());
+
+            if (originalQuestion != null && q.getGivenAnswer() != null &&
+                    q.getGivenAnswer().equals(originalQuestion.getAnswer())) {
                 correctAnswers++;
 
-                double marksSingle = Double.parseDouble(questions.get(0).getQuiz().getMaxMarks()) / questions.size();
-                //       this.questions[0].quiz.maxMarks / this.questions.length;
+                double marksSingle = Double.parseDouble(originalQuestion.getQuiz().getMaxMarks()) / questions.size();
                 marksGot += marksSingle;
-
             }
 
             if (q.getGivenAnswer() != null) {
                 attempted++;
             }
-
         }
-        ;
 
-        Map<String, Object> map = Map.of("marksGot", marksGot, "correctAnswers", correctAnswers, "attempted", attempted);
-        return ResponseEntity.ok(map);
+        Map<String, Object> result = Map.of(
+                "marksGot", marksGot,
+                "correctAnswers", correctAnswers,
+                "attempted", attempted
+        );
 
+        return ResponseEntity.ok(result);
     }
+
 
 }
