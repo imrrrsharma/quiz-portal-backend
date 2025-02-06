@@ -1,4 +1,6 @@
-Quiz Portal
+Quiz Portal - https://quizzing-site.netlify.app/ 
+
+Plz visit this website for attending the quiz.
 
 Quiz Portal is a fully functional website where users can test their knowledge by participating in quizzes. The project includes a backend service, already deployed, and a frontend interface (currently under development using Angular). The system supports two roles: Admin and Normal User, with distinct functionalities for each.
 
@@ -80,3 +82,4 @@ How It Works :-
 4. Admins: Use a separate interface to manage the platform content.
 
    
+![image](https://github.com/user-attachments/assets/930a3b73-1f34-4ccb-a5d8-4945e0ccfd06)
