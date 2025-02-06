@@ -1,6 +1,6 @@
-Quiz Portal
+Quiz Portal - https://quizzing-site.netlify.app/
 
-Quiz Portal is a fully functional website where users can test their knowledge by participating in quizzes. The project includes a backend service, already deployed, and a frontend interface (currently under development using Angular). The system supports two roles: Admin and Normal User, with distinct functionalities for each.
+Quiz Portal is a fully functional website where users can test their knowledge by participating in quizzes. The system supports two roles: Admin and Normal User, with distinct functionalities for each.
 
 
 Functionalities
@@ -11,33 +11,10 @@ Normal User:-
 
    New users can register themselves to access the platform's features.
 
-   • Registration URL:
-   https://quiz-portal-backend-production.up.railway.app/user/
-
-   • Example Body:
-         {
-          "username": "xyzabc123",
-          "password": "pingpong",
-          "firstName": "Ram",
-          "lastName": "Kumar",
-          "email": "ram@gmail.com",
-          "phone": "9887766551"
-         }
-
    
 2. Login and Token Generation
 
    After registering, users can log in to generate a token for authentication. This token will allow them to access all other functionalities.
-
-   • Token Generation URL:
-   https://quiz-portal-backend-production.up.railway.app/generate-token
-
-   • Example Body:
-         {
-          "username": "xyzabc123",
-          "password": "pingpong"
-         }
-   • The system will identify the user as a valid registered user and grant access to protected functionalities.
    
 3. Browse and Attempt Quizzes
 
@@ -68,10 +45,10 @@ Admins have advanced capabilities to manage the platform. They can:
 
 Deployment :-
 
-The backend service is already deployed and running at:
+The backend service is deployed and running at:
 https://quiz-portal-backend-production.up.railway.app/
 
-The frontend interface is under development using Angular. Once completed, it will provide a seamless user experience for both admins and normal users.
+The frontend service is deployed on netlify - https://quizzing-site.netlify.app/
 
 How It Works :-
 1. Register: New users register themselves on the platform.
