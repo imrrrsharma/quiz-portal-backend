@@ -56,4 +56,16 @@ How It Works :-
 3. Normal Users: Browse and attempt quizzes.
 4. Admins: Use a separate interface to manage the platform content.
 
-   
+   Contents of home page :-
+
+   ![WhatsApp Image 2025-02-06 at 10 50 43_419759da](https://github.com/user-attachments/assets/eb95e069-44d8-4caf-a944-092e083b93a0)
+
+   ![WhatsApp Image 2025-02-06 at 10 55 49_83d1a343](https://github.com/user-attachments/assets/27dea5f2-8c56-4afe-ba60-3c85f028c233)
+
+   ![WhatsApp Image 2025-02-06 at 10 56 24_a9a10db6](https://github.com/user-attachments/assets/d5c96a64-3e59-45fc-b0b7-928b83ec43d7)
+
+   ![WhatsApp Image 2025-02-06 at 10 56 46_aa9d0032](https://github.com/user-attachments/assets/2ec0b651-31ea-4f73-ae67-ced513116c4b)
+
+
+
+
